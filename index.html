@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivana Alchemy | אסטרולוגיה וטארות</title>
+    <style>
+        :root { --gold: #d4af37; --night: #0b0d17; --blue: #1a1c2c; --text: #e0e0e0; }
+        body { background-color: var(--night); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
+        header { background: linear-gradient(to bottom, var(--blue), var(--night)); padding: 50px 20px; border-bottom: 2px solid var(--gold); }
+        .logo { font-size: 2.5em; color: var(--gold); font-weight: bold; letter-spacing: 3px; margin: 0; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        .card { background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; }
+        input, button, textarea { width: 90%; max-width: 400px; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid var(--gold); background: #111; color: white; font-size: 1em; }
+        button { background: var(--gold); color: var(--night); font-weight: bold; cursor: pointer; transition: 0.3s; border: none; }
+        button:hover { transform: scale(1.05); background: #f1c40f; }
+        .hidden { display: none; }
+        .whatsapp-btn { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 15px; border-radius: 50%; text-decoration: none; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
+    </style>
+</head>
+<body>
+
+<header>
+    <p class="logo">IVANA ALCHEMY</p>
+    <p>אסטרולוגיה מדויקת | טארות | טיהור אנרגטי</p>
+</header>
+
+<div class="container">
+    
+    <section class="card">
+        <h2 style="color:var(--gold)">מפת לידה אישית</h2>
+        <input type="text" id="uName" placeholder="שם מלא">
+        <input type="date" id="uDate">
+        <input type="time" id="uTime">
+        <button onclick="saveAndProcess()">צפי במפה שלך</button>
+        <p id="welcomeMsg" style="margin-top:15px; font-style:italic;"></p>
+    </section>
+
+    <section class="card">
+        <h2 style="color:var(--gold)">בדיקת התאמה זוגית</h2>
+        <input type="text" id="partnerName" placeholder="שם בן/בת הזוג">
+        <input type="date" id="partnerDate">
+        <button onclick="contact('בדיקת התאמה זוגית')">חשב התאמה בוואטסאפ</button>
+    </section>
+
+    <section class="card">
+        <h2 style="color:var(--gold)">שירותי פרימיום</h2>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+            <button onclick="contact('מפת זוגיות מלאה')">מפת זוגיות עמוקה</button>
+            <button onclick="contact('ייעוץ טארות')">פתיחה בטארות</button>
+            <button onclick="contact('טיהור אנרגטי')">הסרת עין הרע</button>
+        </div>
+    </section>
+
+    <hr style="border: 0.5px solid #333; margin: 40px 0;">
+    <button onclick="toggleAdmin()" style="background:none; color:#555; border:none; font-size:0.7em;">ניהול אתר</button>
+    
+    <div id="adminPanel" class="hidden card">
+        <h3>עדכון תוכן (קודים ומסרים)</h3>
+        <textarea id="adminNotes" rows="4" placeholder="כתבי כאן את התחזית היומית או קודים חדשים..."></textarea><br>
+        <button onclick="updateAdmin()">עדכן אתר</button>
+    </div>
+</div>
+
+<a href="https://wa.me/972508115830" class="whatsapp-btn" target="_blank">WA</a>
+
+<script>
+    function saveAndProcess() {
+        const name = document.getElementById('uName').value;
+        const date = document.getElementById('uDate').value;
+        if(!name) return alert("בבקשה הזיני שם");
+        
+        const data = { name, date, time: document.getElementById('uTime').value };
+        localStorage.setItem('ivana_user', JSON.stringify(data));
+        document.getElementById('welcomeMsg').innerText = "ברוכה הבאה, " + name + ". הפרטים נשמרו. המפה בחישוב...";
+    }
+
+    window.onload = function() {
+        const saved = JSON.parse(localStorage.getItem('ivana_user'));
+        if(saved) {
+            document.getElementById('uName').value = saved.name;
+            document.getElementById('uDate').value = saved.date;
+            document.getElementById('uTime').value = saved.time;
+            document.getElementById('welcomeMsg').innerText = "שמחים שחזרת, " + saved.name;
+        }
+    };
+
+    function contact(service) {
+        const saved = JSON.parse(localStorage.getItem('ivana_user')) || {name: "לקוח/ה"};
+        const text = "היי איוונה, שמי " + saved.name + " ואני מעוניין/ת בשרות: " + service;
+        const encoded = encodeURIComponent(text);
+        window.open("https://wa.me/972508115830?text=" + encoded, "_blank");
+    }
+
+    function toggleAdmin() {
+        document.getElementById('adminPanel').classList.toggle('hidden');
+    }
+
+    function updateAdmin() {
+        const val = document.getElementById('adminNotes').value;
+        localStorage.setItem('ivana_updates', val);
+        alert("התוכן עודכן בהצלחה!");
+    }
+</script>
+
+</body>
+</html>
