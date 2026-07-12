@@ -175,8 +175,12 @@ app.post('/api/generate-reading', generateLimiter, async (req, res) => {
 
 2-3 פסקאות קצרות אבל מאוד עמוקות ונוגעות ללב. סגנון יקר, אישי ומלא אהבה.`
     };
-    const prompt = prompts[type] || prompts.messages;
-    const content = await generateWithOllama(prompt);
+
+    if (!type || !Object.prototype.hasOwnProperty.call(prompts, type)) {
+      return res.status(400).json({ error: 'Invalid reading type', allowed: Object.keys(prompts) });
+    }
+
+    const content = await generateWithOllama(prompts[type]);
     if (!content) return res.status(500).json({ error: 'AI generation failed' });
     const result = await pool.query('INSERT INTO readings (type, content) VALUES ($1, $2) RETURNING *', [type, content]);
     res.json({ success: true, reading: result.rows[0] });
