@@ -52,7 +52,7 @@ async function generateWithOllama(prompt) {
         temperature: 0.8,
         top_p: 0.95
       }
-    });
+    }, { timeout: 30000 });
     return response.data.response;
   } catch (error) {
     console.error('❌ Ollama error:', error.message);
