@@ -63,7 +63,7 @@ cp .env.example .env
 ערוך את `.env` עם הפרטים שלך:
 
 ```env
-DATABASE_URL=******localhost:5432/ivanas_alchemy
+DATABASE_URL=postgresql://user:password@localhost:5432/ivanas_alchemy
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=mistral
 PORT=3000
