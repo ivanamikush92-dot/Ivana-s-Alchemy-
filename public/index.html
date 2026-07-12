@@ -878,10 +878,14 @@
                 runes: '✨ רונות', love: '💕 אהבה', future: '🔭 עתיד', messages: '💫 מסרים'
             };
             try {
-                const res = await fetch(`${API_URL}/readings?type=${type}`);
+                const horoscopeTypes = ['daily', 'weekly', 'monthly'];
+                const isHoroscopeType = horoscopeTypes.includes(type);
+                const res = await fetch(
+                    isHoroscopeType ? `${API_URL}/horoscope/${type}` : `${API_URL}/readings?type=${type}`
+                );
                 if (!res.ok) throw new Error('API unavailable');
                 const data = await res.json();
-                renderCards(data, containerId, labels);
+                renderCards(isHoroscopeType ? [data] : data, containerId, labels);
             } catch {
                 container.innerHTML = `<div class="empty-state"><span class="symbol">🔮</span><h2>השרת אינו זמין</h2><p>לחצי על כפתור הייצור לקבלת תוכן חדש</p></div>`;
             }
@@ -903,15 +907,31 @@
 
             container.innerHTML = `<div class="loading"><div class="spinner"></div><p>✨ יוצר ${labels[type] || type}... (עשוי לקחת כחצי דקה)</p></div>`;
             try {
-                const res = await fetch(`${API_URL}/generate-reading`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type })
-                });
+                const horoscopeTypes = ['daily', 'weekly', 'monthly'];
+                const isHoroscopeType = horoscopeTypes.includes(type);
+                const res = await fetch(
+                    isHoroscopeType ? `${API_URL}/generate-horoscopes` : `${API_URL}/generate-reading`,
+                    isHoroscopeType
+                        ? { method: 'POST' }
+                        : {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ type })
+                          }
+                );
                 if (!res.ok) throw new Error(`Error ${res.status}`);
                 const data = await res.json();
                 showMessage(`✅ ${labels[type]} נוצר!`, 'success');
-                renderCards([data.reading], containerId, labels);
+                if (isHoroscopeType) {
+                    const horoscope = data.horoscopes?.find((h) => h.type === type);
+                    if (horoscope) {
+                        renderCards([horoscope], containerId, labels);
+                    } else {
+                        await loadReadings(type, containerId);
+                    }
+                } else {
+                    renderCards([data.reading], containerId, labels);
+                }
             } catch (err) {
                 container.innerHTML = `<div class="empty-state"><span class="symbol">⚠️</span><h2>השרת אינו זמין</h2><p>ודאי שהשרת פועל ו-Ollama מוגדר כראוי</p></div>`;
                 showMessage(`❌ שגיאה: ${err.message}`, 'error');
