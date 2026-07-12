@@ -553,8 +553,8 @@
                 <p>מה הכוכבים אומרים להיום</p>
             </div>
             <div class="button-group">
-                <button class="btn" onclick="generateReading('daily')">✨ צור הורוסקופ יומי</button>
-                <button class="btn btn-secondary" onclick="loadReadings('daily', 'daily-container')">🔄 רענן</button>
+                <button class="btn" onclick="generateHoroscope('daily')">✨ צור הורוסקופ יומי</button>
+                <button class="btn btn-secondary" onclick="loadHoroscope('daily', 'daily-container')">🔄 רענן</button>
             </div>
             <div id="daily-container">
                 <div class="empty-state">
@@ -578,8 +578,8 @@
                 <p>אנרגיות וכיוונים לשבוע הקרוב</p>
             </div>
             <div class="button-group">
-                <button class="btn" onclick="generateReading('weekly')">✨ צור הורוסקופ שבועי</button>
-                <button class="btn btn-secondary" onclick="loadReadings('weekly', 'weekly-container')">🔄 רענן</button>
+                <button class="btn" onclick="generateHoroscope('weekly')">✨ צור הורוסקופ שבועי</button>
+                <button class="btn btn-secondary" onclick="loadHoroscope('weekly', 'weekly-container')">🔄 רענן</button>
             </div>
             <div id="weekly-container">
                 <div class="empty-state">
@@ -597,8 +597,8 @@
                 <p>מפת כוכבים מקיפה לחודש הקרוב</p>
             </div>
             <div class="button-group">
-                <button class="btn" onclick="generateReading('monthly')">✨ צור הורוסקופ חודשי</button>
-                <button class="btn btn-secondary" onclick="loadReadings('monthly', 'monthly-container')">🔄 רענן</button>
+                <button class="btn" onclick="generateHoroscope('monthly')">✨ צור הורוסקופ חודשי</button>
+                <button class="btn btn-secondary" onclick="loadHoroscope('monthly', 'monthly-container')">🔄 רענן</button>
             </div>
             <div id="monthly-container">
                 <div class="empty-state">
@@ -868,13 +868,54 @@
             }
         }
 
-        // Readings (daily, weekly, monthly, runes, love, future, messages)
+        const horoscopeLabels = { daily: '🌅 יומי', weekly: '📊 שבועי', monthly: '🌙 חודשי' };
+
+        async function loadHoroscope(type, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = `<div class="loading"><div class="spinner"></div><p>🔮 טוען הורוסקופ...</p></div>`;
+            try {
+                const res = await fetch(`${API_URL}/horoscope/${type}`);
+                if (!res.ok) throw new Error('API unavailable');
+                const data = await res.json();
+                renderCards([data], containerId, horoscopeLabels);
+            } catch {
+                container.innerHTML = `<div class="empty-state"><span class="symbol">🔮</span><h2>השרת אינו זמין</h2><p>לחצי על כפתור הייצור לקבלת תוכן חדש</p></div>`;
+            }
+        }
+
+        async function generateHoroscope(type) {
+            const containerMap = { daily: 'daily-container', weekly: 'weekly-container', monthly: 'monthly-container' };
+            const containerId = containerMap[type];
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.innerHTML = `<div class="loading"><div class="spinner"></div><p>✨ יוצר ${horoscopeLabels[type] || type}... (עשוי לקחת כדקה)</p></div>`;
+            try {
+                const res = await fetch(`${API_URL}/generate-horoscopes`, { method: 'POST' });
+                if (!res.ok) throw new Error(`Error ${res.status}`);
+                const data = await res.json();
+                const generated = Array.isArray(data.horoscopes)
+                    ? data.horoscopes.find(item => item.type === type)
+                    : null;
+                showMessage(`✅ ${horoscopeLabels[type]} נוצר!`, 'success');
+                if (generated) {
+                    renderCards([generated], containerId, horoscopeLabels);
+                } else {
+                    await loadHoroscope(type, containerId);
+                }
+            } catch (err) {
+                container.innerHTML = `<div class="empty-state"><span class="symbol">⚠️</span><h2>השרת אינו זמין</h2><p>ודאי שהשרת פועל ו-Ollama מוגדר כראוי</p></div>`;
+                showMessage(`❌ שגיאה: ${err.message}`, 'error');
+            }
+        }
+
+        // Readings (runes, love, future, messages)
         async function loadReadings(type, containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
             container.innerHTML = `<div class="loading"><div class="spinner"></div><p>✨ טוען קריאות...</p></div>`;
             const labels = {
-                daily: '🌅 יומי', weekly: '📊 שבועי', monthly: '🌙 חודשי',
                 runes: '✨ רונות', love: '💕 אהבה', future: '🔭 עתיד', messages: '💫 מסרים'
             };
             try {
@@ -901,7 +942,6 @@
             if (!container) return;
 
             const labels = {
-                daily: '🌅 יומי', weekly: '📊 שבועי', monthly: '🌙 חודשי',
                 runes: '✨ רונות', love: '💕 אהבה', future: '🔭 עתיד', messages: '💫 מסרים'
             };
 
