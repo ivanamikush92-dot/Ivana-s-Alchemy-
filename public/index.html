@@ -803,9 +803,17 @@
             btn.classList.add('active');
         }
 
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
         function showMessage(message, type) {
             const container = document.getElementById('message-container');
-            container.innerHTML = `<div class="message ${type}">${message}</div>`;
+            container.innerHTML = '';
+            const el = document.createElement('div');
+            el.className = `message ${type}`;
+            el.textContent = message;
+            container.appendChild(el);
             setTimeout(() => { container.innerHTML = ''; }, 6000);
         }
 
@@ -817,9 +825,9 @@
             }
             container.innerHTML = `<div class="cards-grid">${items.map((item, i) => `
                 <div class="card" style="animation-delay:${i * 0.08}s">
-                    <div class="card-type">${typeLabels[item.type] || item.type}</div>
-                    <h3>${typeLabels[item.type] || item.type}</h3>
-                    <p>${item.content}</p>
+                    <div class="card-type">${escapeHtml(typeLabels[item.type] || item.type)}</div>
+                    <h3>${escapeHtml(typeLabels[item.type] || item.type)}</h3>
+                    <p>${escapeHtml(item.content)}</p>
                     <div class="card-meta">
                         <span>📅 ${new Date(item.created_at).toLocaleDateString('he-IL')}</span>
                         <span>✨ AI</span>
