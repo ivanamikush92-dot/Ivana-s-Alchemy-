@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS projects (
   github_url VARCHAR(500),
   live_url VARCHAR(500),
   status VARCHAR(50) DEFAULT 'active',
-  created_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS reports (
