@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>🔮 IvanasAlchemy - מיסטיקה, טארוט ואלכימיה</title>
     <meta name="description" content="IvanasAlchemy של איוונה - הורוסקופים, טארוט, רונות, חיזוי עתיד, מסרים מהיקום ואלכימיה מיסטית. קריאות אישיות בעברית.">
     <meta name="keywords" content="הורוסקופ, טארוט, רונות, מיסטיקה, אלכימיה, חיזוי עתיד, אסטרולוגיה, IvanasAlchemy, איוונה">
@@ -12,14 +11,6 @@
     <meta property="og:description" content="הורוסקופים, רונות, טארוט וחיזוי עתיד בעברית - IvanasAlchemy של איוונה">
     <meta property="og:url" content="https://ivanasalchemy.online">
     <meta property="og:type" content="website">
-=======
-    <title>🧪 IvanasAlchemy - הורוסקופים, דוחות וחיזויים</title>
-    <meta name="description" content="IvanasAlchemy - הורוסקופים יומיים, שבועיים וחודשיים, רונות, אהבה וחיזוי עתיד בעברית.">
-    <meta name="keywords" content="הורוסקופ, הורוסקופ יומי, הורוסקופ שבועי, הורוסקופ חודשי, רונות, אהבה, חיזוי עתיד, מזלות, Ivana's Alchemy">
-    <meta property="og:title" content="🧪 IvanasAlchemy - הורוסקופים, דוחות וחיזויים">
-    <meta property="og:description" content="תחזיות אסטרולוגיות, קריאות רונות וחיזוי עתיד בעברית באתר IvanasAlchemy.">
-    <meta property="og:url" content="https://ivanasalchemy.online">
->>>>>>> origin/main
     <link rel="canonical" href="https://ivanasalchemy.online">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -782,39 +773,8 @@
     </div>
 
     <script>
-<<<<<<< HEAD
         const API_URL = '/api';
         let apiAvailable = false;
-=======
-        const dailyHoroscopes = [
-            { title: '♈ טלה', content: 'היום מביא איתו פרץ של יוזמה. שיחה ישירה במקום העבודה תפתח דלת להזדמנות חדשה, ובערב מומלץ זמן שקט למילוי אנרגיה.' },
-            { title: '♉ שור', content: 'יציבות כלכלית מתחזקת כשאתם פועלים בסבלנות. שימו לב לפרטים קטנים במסמכים והקשיבו לאינטואיציה בנוגע לרכישה חשובה.' },
-            { title: '♊ תאומים', content: 'תקשורת היא הכוח שלכם היום. מפגש חברתי עשוי להפוך לשיתוף פעולה מקצועי, במיוחד אם תציגו רעיון יצירתי בביטחון.' },
-            { title: '♋ סרטן', content: 'הלב מבקש ביטחון ורכות. זה זמן מצוין לסגור עניין משפחתי ישן וליצור סדר רגשי שייתן לכם בהירות להמשך השבוע.' },
-            { title: '♌ אריה', content: 'אתם במרכז הבמה והכריזמה בולטת. נצלו זאת להצגת פרויקט או בקשה חשובה, אך השאירו מקום גם לשיתוף פעולה עם אחרים.' },
-            { title: '♍ בתולה', content: 'יום יעיל במיוחד לסידור משימות. תכנון נכון בבוקר יחסוך לחץ בערב, וחדות המחשבה תעזור לפתור בעיה מורכבת במהירות.' },
-            { title: '♎ מאזניים', content: 'איזון בין רצונות אישיים לצרכי הסביבה יהיה המפתח. שיחה כנה עם אדם קרוב תחזק אמון ותיצור תחושת הרמוניה.' },
-            { title: '♏ עקרב', content: 'עומק רגשי ויכולת הבחנה חדה ילוו אתכם. החלטה שתדחו זמן רב יכולה להתבהר היום בזכות פרט קטן שייחשף.' },
-            { title: '♐ קשת', content: 'רוח ההרפתקה מתעוררת. למידה חדשה או נסיעה קצרה ירחיבו אופקים ויעניקו השראה לפרויקט אישי חשוב.' },
-            { title: '♑ גדי', content: 'התמדה משתלמת, במיוחד בנושאי קריירה. התקדמות איטית אך יציבה תוכיח את עצמה, ומומלץ לשמור על גבולות בריאים.' },
-            { title: '♒ דלי', content: 'רעיונות מקוריים זורמים בקלות. שתפו מחשבה נועזת עם הסביבה הקרובה — התמיכה שתקבלו תפתיע אתכם לטובה.' },
-            { title: '♓ דגים', content: 'הרגישות הגבוהה שלכם הופכת לכלי עוצמתי. פעילות יצירתית קצרה תחזק ביטחון ותעזור לסיים את היום בתחושת שלווה.' }
-        ];
-
-        function renderCards(containerId, cards) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = cards.map((card, i) => `
-                <div class="horoscope-card" style="animation-delay: ${i * 0.1}s">
-                    <div class="horoscope-type">${card.type}</div>
-                    <h3>${card.title}</h3>
-                    <p>${card.content}</p>
-                    <div class="horoscope-meta">
-                        <div class="meta-item"><span>${card.metaIcon}</span><span>${card.metaText}</span></div>
-                    </div>
-                </div>
-            `).join('');
-        }
->>>>>>> origin/main
 
         // Check API availability on load
         async function checkApi() {
@@ -884,7 +844,6 @@
             }
         }
 
-<<<<<<< HEAD
         async function generateHoroscopes() {
             const container = document.getElementById('horoscopes-container');
             container.innerHTML = `<div class="loading"><div class="spinner"></div><p>🔮 יוצר הורוסקופים... (עשוי לקחת כדקה)</p></div>`;
@@ -991,97 +950,6 @@
                 container.innerHTML = `<div class="empty-state"><span class="symbol">⚠️</span><h2>השרת אינו זמין</h2><p>ודאי שהשרת פועל ומסד הנתונים מוגדר</p></div>`;
                 showMessage(`❌ שגיאה: ${err.message}`, 'error');
             }
-=======
-        function generateHoroscopes() {
-            const cards = dailyHoroscopes.slice(0, 6).map((item) => ({
-                type: '🔮 תחזית נבחרת',
-                title: item.title,
-                content: item.content,
-                metaIcon: '📌',
-                metaText: 'נבחר היום'
-            }));
-            renderCards('horoscopes-container', cards);
-            showMessage('✅ הורוסקופים נטענו בהצלחה', 'success');
-        }
-
-        function loadHoroscopes() {
-            generateHoroscopes();
-        }
-
-        function generateDaily() {
-            const cards = dailyHoroscopes.map((item) => ({
-                type: '📅 יומי',
-                title: item.title,
-                content: item.content,
-                metaIcon: '🌞',
-                metaText: `עודכן: ${new Date().toLocaleDateString('he-IL')}`
-            }));
-            renderCards('daily-container', cards);
-            showMessage('✅ הורוסקופ יומי לכל 12 המזלות נטען', 'success');
-        }
-
-        function generateWeekly() {
-            const weeklyForecast = [
-                { day: 'ראשון', content: 'פתיחה חזקה לשבוע. זה הזמן לתכנן משימות גדולות ולהציב כוונה ברורה.' },
-                { day: 'שני', content: 'אנרגיה פרקטית תומכת בסידור כספים וארגון. התמקדו בפרטים החשובים.' },
-                { day: 'שלישי', content: 'תקשורת, שיחות ומסרים מרכזיים. רעיון קטן יכול להפוך להזדמנות אמיתית.' },
-                { day: 'רביעי', content: 'אמצע השבוע מביא רוגע פנימי. הקשיבו לגוף וקחו הפסקה קצרה לטעינה.' },
-                { day: 'חמישי', content: 'יום מצוין ליחסים ושיתופי פעולה. מחווה טובה תחזק קשר משמעותי.' },
-                { day: 'שישי', content: 'יצירתיות ואווירה חגיגית. מתאים לבילוי, מוזיקה והשראה חדשה.' },
-                { day: 'שבת', content: 'התבוננות וסיכום שבוע. מומלץ להגדיר צעד ברור אחד לשבוע הבא.' }
-            ];
-            const cards = weeklyForecast.map((item) => ({
-                type: '📊 תחזית שבועית',
-                title: `יום ${item.day}`,
-                content: item.content,
-                metaIcon: '🗓️',
-                metaText: 'תחזית ל-7 ימים'
-            }));
-            renderCards('weekly-container', cards);
-            showMessage('✅ הורוסקופ שבועי נטען ל-7 ימים', 'success');
-        }
-
-        function generateMonthly() {
-            const cards = [
-                { type: '📈 חודשי', title: 'נושא החודש', content: 'החודש מתמקד בצמיחה אישית ובחיזוק ביטחון עצמי. שילוב בין יוזמה לבין סבלנות יביא תוצאות ארוכות טווח.', metaIcon: '🌙', metaText: 'מבט כולל' },
-                { type: '💼 קריירה', title: 'עבודה וכסף', content: 'תיתכן התקדמות הדרגתית בפרויקט חשוב. הקפידו על סדר ותיעדוף כדי לנצל הזדמנות מקצועית שתופיע באמצע החודש.', metaIcon: '💼', metaText: 'מסלול מקצועי' },
-                { type: '❤️ יחסים', title: 'אהבה וקשרים', content: 'החודש מתאים לשיחות עומק ולחיזוק אמון. פתיחות רגשית תקרב בין אנשים ותסייע בריפוי מתחים ישנים.', metaIcon: '🤝', metaText: 'מערכות יחסים' },
-                { type: '🌟 עצה אלכימית', title: 'איזון פנימי', content: 'שלבו בין פעולה למנוחה: שלושה צעדים קדימה ואז עצירה קצרה לבחינה. כך תישמר בהירות לאורך החודש כולו.', metaIcon: '✨', metaText: 'הכוונה חודשית' }
-            ];
-            renderCards('monthly-container', cards);
-            showMessage('✅ הורוסקופ חודשי מפורט נטען', 'success');
-        }
-
-        function generateRunes() {
-            const cards = [
-                { type: '🕰️ עבר', title: 'רונה: אנסוז (Ansuz)', content: 'העבר נשלט על ידי תקשורת ולמידה. מסר שלא הובן אז מתבהר עכשיו ומאפשר תיקון.', metaIcon: 'ᚨ', metaText: 'מקור ותובנה' },
-                { type: '🌿 הווה', title: 'רונה: גיבו (Gebo)', content: 'בהווה פועלת אנרגיית איזון ונתינה הדדית. שיתוף פעולה נכון יפתח שער להצלחה.', metaIcon: 'ᚷ', metaText: 'הווה מאוזן' },
-                { type: '🔮 עתיד', title: 'רונה: פיהו (Fehu)', content: 'בעתיד הקרוב צפויה ברכה של שפע והתקדמות חומרית. התמדה תתרגם פוטנציאל להישג ממשי.', metaIcon: 'ᚠ', metaText: 'שפע והתקדמות' }
-            ];
-            renderCards('runes-container', cards);
-            showMessage('✅ נמשכו 3 רונות: עבר, הווה ועתיד', 'success');
-        }
-
-        function generateLove() {
-            const cards = [
-                { type: '💕 אהבה', title: 'אנרגיה רומנטית', content: 'פתיחות לבבית מחזקת משיכה הדדית. מחווה קטנה מהלב תיצור רגע משמעותי בקשר.', metaIcon: '💓', metaText: 'תדר רגשי' },
-                { type: '💬 תקשורת', title: 'מה חשוב לומר', content: 'כנות עדינה תפתור אי-הבנה ותיצור קרבה. נסו לדבר על צורך אמיתי במקום על ביקורת.', metaIcon: '🕊️', metaText: 'שיחה מקרבת' },
-                { type: '🌹 צעד מומלץ', title: 'מעשה אהבה קטן', content: 'קבעו זמן איכות ללא הסחות דעת. נוכחות אמיתית תחדש את תחושת החיבור והאמון.', metaIcon: '🌙', metaText: 'הכוונה זוגית' }
-            ];
-            renderCards('love-container', cards);
-            showMessage('✅ קריאת אהבה נטענה בהצלחה', 'success');
-        }
-
-        function generateFuture() {
-            const cards = [
-                { type: '🔮 עתיד', title: '30 הימים הקרובים', content: 'התקדמות מתונה אך עקבית. צעד קטן בכל יום יבנה מומנטום משמעותי עד סוף החודש.', metaIcon: '🧭', metaText: 'עתיד קרוב' },
-                { type: '🚀 הזדמנות', title: 'חלון צמיחה חדש', content: 'דלת חדשה תיפתח סביב תחום יצירתי או מקצועי. היו מוכנים לפעול במהירות ובביטחון.', metaIcon: '✨', metaText: 'פוטנציאל גבוה' },
-                { type: '🛡️ אתגר', title: 'מה דורש תשומת לב', content: 'האתגר המרכזי הוא פיזור אנרגיה. מיקוד בנושא אחד יחזק תוצאות וימנע שחיקה.', metaIcon: '⚖️', metaText: 'איזון נכון' },
-                { type: '🌟 מסר מסכם', title: 'הכוונה אלכימית', content: 'העתיד מגיב לבחירות קטנות ועקביות. בחרו היום פעולה אחת שתואמת את היעד הגדול שלכם.', metaIcon: '🪄', metaText: 'השראה יומית' }
-            ];
-            renderCards('future-container', cards);
-            showMessage('✅ חיזוי עתיד כללי נטען', 'success');
->>>>>>> origin/main
         }
 
         // Initialize
