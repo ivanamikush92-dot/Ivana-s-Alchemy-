@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS reports (
   title VARCHAR(255),
   content TEXT NOT NULL,
   summary VARCHAR(500),
-  generated_at TIMESTAMP DEFAULT NOW()
+  generated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 INSERT INTO projects (name, description, technologies, github_url, status) VALUES
