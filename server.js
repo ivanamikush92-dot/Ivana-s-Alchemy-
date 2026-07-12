@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 const { Pool } = require('pg');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +12,25 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+// Rate limiting
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests, please try again later.' }
+});
+
+const generateLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many generation requests, please try again later.' }
+});
+
+app.use('/api/', apiLimiter);
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
@@ -60,7 +80,7 @@ app.get('/api/horoscope/:type', async (req, res) => {
 });
 
 // POST /api/generate-horoscopes
-app.post('/api/generate-horoscopes', async (req, res) => {
+app.post('/api/generate-horoscopes', generateLimiter, async (req, res) => {
   try {
     const types = [
       { key: 'daily', label: 'יומי', timeframe: 'היום' },
@@ -98,7 +118,7 @@ app.get('/api/readings', async (req, res) => {
 });
 
 // POST /api/generate-reading
-app.post('/api/generate-reading', async (req, res) => {
+app.post('/api/generate-reading', generateLimiter, async (req, res) => {
   try {
     const { type } = req.body;
     const prompts = {
@@ -128,7 +148,7 @@ app.get('/api/reports', async (req, res) => {
 });
 
 // POST /api/generate-reports
-app.post('/api/generate-reports', async (req, res) => {
+app.post('/api/generate-reports', generateLimiter, async (req, res) => {
   try {
     const projects = await pool.query("SELECT * FROM projects WHERE status = 'active'");
     const generated = [];
